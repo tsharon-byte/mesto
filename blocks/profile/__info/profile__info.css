@@ -1,0 +1,10 @@
+.profile__info {
+    margin-left: 20px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 425px) {
+    .profile__info {
+        margin-left: 0;
+    }
+}
