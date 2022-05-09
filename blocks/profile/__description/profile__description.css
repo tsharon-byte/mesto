@@ -1,0 +1,12 @@
+.profile__description {
+    margin: 0;
+    font-size: 18px;
+    line-height: 22px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 425px) {
+    .profile__description {
+        margin-top: 14px;
+    }
+}
