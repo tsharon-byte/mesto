@@ -1,5 +1,6 @@
 .button {
     background: #000000;
+    outline: none;
     border-radius: 2px;
     width: 100%;
     font-size: 18px;
