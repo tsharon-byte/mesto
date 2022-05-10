@@ -4,9 +4,17 @@
     height: 24px;
     margin-bottom: 7px;
     box-sizing: border-box;
+    background-size: cover;
 }
 
 .profile__edit-button:hover {
     cursor: pointer;
     opacity: 0.6;
+}
+
+@media (max-width: 425px) {
+    .profile__edit-button {
+        width: 18px;
+        height: 18px;
+    }
 }
