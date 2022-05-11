@@ -2,6 +2,7 @@
     width: 32px;
     height: 32px;
     background-image: url("../../../images/close-icon.svg");
+    background-color: black !important;
     background-size: cover;
     position: absolute;
     top: -40px;
