@@ -1,20 +1,11 @@
-const NAME = 'name';
-const DESCRIPTION = 'description';
-const PROFILE_EDIT_BUTTON = '.profile__edit-button';
-const POPUP = '.popup';
-const POPUP_CLOSE_ICON = '.popup__close-icon';
-const FORM = '.form';
-const PROFILE_NAME = '.profile__name';
-const PROFILE_DESCRIPTION = '.profile__description';
-
-const editBtn = document.querySelector(PROFILE_EDIT_BUTTON);
-const popup = document.querySelector(POPUP);
-const closePopUp = document.querySelector(POPUP_CLOSE_ICON);
-let formElement = document.querySelector(FORM);
-let nameInput = document.getElementById(NAME);
-let jobInput = document.getElementById(DESCRIPTION);
-const profileName = document.querySelector(PROFILE_NAME);
-const profileDescription = document.querySelector(PROFILE_DESCRIPTION);
+const editBtn = document.querySelector('.profile__edit-button');
+const popup = document.querySelector('.popup');
+const closePopUp = document.querySelector('.popup__close-icon');
+let formElement = document.getElementById('EditProfileForm');
+let nameInput = document.getElementById('name');
+let jobInput = document.getElementById('description');
+const profileName = document.querySelector('.profile__name');
+const profileDescription = document.querySelector('.profile__description');
 
 const popupOpened = () => {
     popup.classList.add("popup_opened");
