@@ -28,59 +28,38 @@
                                                                                         alt="Добавить"></button>
                 </section>
                 <section class="elements">
-                    <div class="elements__item">
-                        <img class="elements__image" src="images/karachaevsk.jpg" alt="Карачаевск">
-                        <div class="elements__title">
-                            <h2 class="elements__name">Карачаевск</h2>
-                            <button class="image-button elements__like" type="button"></button>
-                        </div>
-                    </div>
-                    <div class="elements__item">
-                        <img class="elements__image" src="images/elbrus.jpg" alt="Гора Эльбрус">
-                        <div class="elements__title">
-                            <h2 class="elements__name">Гора Эльбрус</h2>
-                            <button class="image-button elements__like" type="button"></button>
-                        </div>
-                    </div>
-                    <div class="elements__item">
-                        <img class="elements__image" src="images/dombai.jpg" alt="Домбай">
-                        <div class="elements__title">
-                            <h2 class="elements__name">Домбай</h2>
-                            <button class="image-button elements__like" type="button"></button>
-                        </div>
-                    </div>
-                    <div class="elements__item">
-                        <img class="elements__image" src="images/elbrus.jpg" alt="Гора Эльбрус">
-                        <div class="elements__title">
-                            <h2 class="elements__name">Гора Эльбрус</h2>
-                            <button class="image-button elements__like" type="button"></button>
-                        </div>
-                    </div>
-                    <div class="elements__item">
-                        <img class="elements__image" src="images/dombai.jpg" alt="Домбай">
-                        <div class="elements__title">
-                            <h2 class="elements__name">Домбай</h2>
-                            <button class="image-button elements__like" type="button"></button>
-                        </div>
-                    </div>
-                    <div class="elements__item">
-                        <img class="elements__image" src="images/karachaevsk.jpg" alt="Карачаево-Черкессия">
-                        <div class="elements__title">
-                            <h2 class="elements__name">Карачаево-Черкессия</h2>
-                            <button class="image-button elements__like active" type="button"></button>
-                        </div>
-                    </div>
+<!--                    <div class="elements__item">-->
+<!--                        <img class="elements__image"-->
+<!--                             src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"-->
+<!--                             alt='Байкал'>-->
+<!--                        <div class="elements__title">-->
+<!--                            <h2 class="elements__name">Байкал</h2>-->
+<!--                            <button class="image-button elements__like" type="button"/>-->
+<!--                        </div>-->
+<!--                        <button class="image-button elements__delete" type="button"/>-->
+<!--                    </div>-->
                 </section>
             </main>
             <footer class="footer"><p class="footer__copyright">© 2020 Mesto Russia</p></footer>
         </div>
-        <div class="popup">
+        <div class="popup" id="EditProfilePopup">
             <div class="popup__container">
                 <form class="form" name="EditProfileForm" id="EditProfileForm">
                     <h2 class="form__title">Редактировать профиль</h2>
                     <input class="input form__name" id="name" name="name" type="text">
                     <input class="input form__description" id="description" name="description" type="text">
                     <button class="button form__submit" type="submit">Сохранить</button>
+                </form>
+                <button class="image-button popup__close-icon" type="reset"></button>
+            </div>
+        </div>
+        <div class="popup" id="AddPlacePopup">
+            <div class="popup__container">
+                <form class="form" name="AddPlaceForm" id="AddPlaceForm">
+                    <h2 class="form__title">Новое место</h2>
+                    <input class="input form__name" id="place_name" name="place_name" type="text">
+                    <input class="input form__description" id="place_url" name="place_url" type="text">
+                    <button class="button form__submit" type="submit">Создать</button>
                 </form>
                 <button class="image-button popup__close-icon" type="reset"></button>
             </div>

@@ -1,5 +1,5 @@
 .elements__item {
-    width: 100%;
+    width: 282px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -7,4 +7,5 @@
     border-radius: 10px;
     height: 360px;
     overflow: hidden;
+    position: relative;
 }
