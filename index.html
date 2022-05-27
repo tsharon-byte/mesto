@@ -28,16 +28,18 @@
                                                                                         alt="Добавить"></button>
                 </section>
                 <section class="elements">
-<!--                    <div class="elements__item">-->
-<!--                        <img class="elements__image"-->
-<!--                             src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"-->
-<!--                             alt='Байкал'>-->
-<!--                        <div class="elements__title">-->
-<!--                            <h2 class="elements__name">Байкал</h2>-->
-<!--                            <button class="image-button elements__like" type="button"/>-->
-<!--                        </div>-->
-<!--                        <button class="image-button elements__delete" type="button"/>-->
-<!--                    </div>-->
+                    <template id="elementTemplate">
+                        <div class="elements__item">
+                            <img class="elements__image"
+                                 src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg"
+                                 alt='Байкал'>
+                            <div class="elements__title">
+                                <h2 class="elements__name">Байкал</h2>
+                                <button class="image-button elements__like" type="button"/>
+                            </div>
+                            <button class="image-button elements__delete" type="button"/>
+                        </div>
+                    </template>
                 </section>
             </main>
             <footer class="footer"><p class="footer__copyright">© 2020 Mesto Russia</p></footer>
@@ -62,6 +64,16 @@
                     <button class="button form__submit" type="submit">Создать</button>
                 </form>
                 <button class="image-button popup__close-icon" type="reset"></button>
+            </div>
+        </div>
+        <div class="popup" id="ViewImagePopup">
+            <div class="popup__container popup__container_size_large">
+                <figure class="figure">
+                    <img class="popup__image" src="#" alt="">
+                    <figcaption class="figure__caption"></figcaption>
+                </figure>
+                <button class="image-button popup__close-icon" type="reset"></button>
+
             </div>
         </div>
         <script src="scripts/index.js"></script>
