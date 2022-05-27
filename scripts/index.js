@@ -22,7 +22,7 @@ const viewPlaceImage = viewPlacePopup.querySelector('.popup__image');
 const viewPlaceCaption = viewPlacePopup.querySelector('.figure__caption');
 const viewPlaceClosePopUp = viewPlacePopup.querySelector('.popup__close-icon');
 
-let initialCards = [
+const initialCards = [
     {
         name: 'Архыз',
         link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
