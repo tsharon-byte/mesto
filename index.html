@@ -35,47 +35,47 @@
                                  alt='Байкал'>
                             <div class="elements__title">
                                 <h2 class="elements__name">Байкал</h2>
-                                <button class="image-button elements__like" type="button"/>
+                                <button class="image-button elements__like" type="button"></button>
                             </div>
-                            <button class="image-button elements__delete" type="button"/>
+                            <button class="image-button elements__delete" type="button"></button>
                         </div>
                     </template>
                 </section>
             </main>
             <footer class="footer"><p class="footer__copyright">© 2020 Mesto Russia</p></footer>
         </div>
-        <div class="popup" id="EditProfilePopup">
+        <div class="popup" id="editProfilePopup">
             <div class="popup__container">
-                <form class="form" name="EditProfileForm" id="EditProfileForm">
+                <form class="form" name="edit-profile-form" id="editProfileForm">
                     <h2 class="form__title">Редактировать профиль</h2>
                     <input class="input form__name" id="name" name="name" type="text">
                     <input class="input form__description" id="description" name="description" type="text">
                     <button class="button form__submit" type="submit">Сохранить</button>
                 </form>
-                <button class="image-button popup__close-icon" type="reset"></button>
+                <button class="image-button popup__close-icon" type="button"></button>
             </div>
         </div>
-        <div class="popup" id="AddPlacePopup">
+        <div class="popup" id="addPlacePopup">
             <div class="popup__container">
-                <form class="form" name="AddPlaceForm" id="AddPlaceForm">
+                <form class="form" name="add-place-form" id="addPlaceForm">
                     <h2 class="form__title">Новое место</h2>
                     <input class="input form__name" id="place_name" name="place_name" type="text">
                     <input class="input form__description" id="place_url" name="place_url" type="text">
                     <button class="button form__submit" type="submit">Создать</button>
                 </form>
-                <button class="image-button popup__close-icon" type="reset"></button>
+                <button class="image-button popup__close-icon" type="button"></button>
             </div>
         </div>
-        <div class="popup" id="ViewImagePopup">
+        <div class="popup" id="viewImagePopup">
             <div class="popup__container popup__container_size_large">
                 <figure class="figure">
                     <img class="popup__image" src="#" alt="">
                     <figcaption class="figure__caption"></figcaption>
                 </figure>
-                <button class="image-button popup__close-icon" type="reset"></button>
-
+                <button class="image-button popup__close-icon" type="button"></button>
             </div>
         </div>
+        <script src="scripts/initial-cards.js"></script>
         <script src="scripts/index.js"></script>
     </body>
 </html>

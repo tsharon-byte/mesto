@@ -2,55 +2,28 @@ const editBtn = document.querySelector('.profile__edit-button');
 const addBtn = document.querySelector('.profile__add-button');
 const elements = document.querySelector('.elements');
 
-const popup = document.getElementById('EditProfilePopup');
-const closePopUp = popup.querySelector('.popup__close-icon');
-const formElement = document.getElementById('EditProfileForm');
+const editProfilePopup = document.getElementById('editProfilePopup');
+const closePopUpBtn = editProfilePopup.querySelector('.popup__close-icon');
+const editProfileForm = document.getElementById('editProfileForm');
 const nameInput = document.getElementById('name');
 const jobInput = document.getElementById('description');
 
-const addPlacePopup = document.getElementById('AddPlacePopup');
-const addPlaceClosePopUp = addPlacePopup.querySelector('.popup__close-icon');
-const addPlaceForm = document.getElementById('AddPlaceForm');
+const addPlacePopup = document.getElementById('addPlacePopup');
+const addPlaceClosePopUpBtn = addPlacePopup.querySelector('.popup__close-icon');
+const addPlaceForm = document.getElementById('addPlaceForm');
 const placeName = document.getElementById('place_name');
 const placeUrl = document.getElementById('place_url');
 
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 
-const viewPlacePopup = document.getElementById('ViewImagePopup');
+const viewPlacePopup = document.getElementById('viewImagePopup');
 const viewPlaceImage = viewPlacePopup.querySelector('.popup__image');
 const viewPlaceCaption = viewPlacePopup.querySelector('.figure__caption');
-const viewPlaceClosePopUp = viewPlacePopup.querySelector('.popup__close-icon');
+const viewPlaceClosePopUpBtn = viewPlacePopup.querySelector('.popup__close-icon');
 
-const initialCards = [
-    {
-        name: 'Архыз',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-        name: 'Челябинская область',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-        name: 'Иваново',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-        name: 'Камчатка',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-        name: 'Холмогорский район',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-        name: 'Байкал',
-        link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
-
-const viewPlacePopupOpened = () => {
-    viewPlacePopup.classList.add("popup_opened");
+const openPopup = (item) => {
+    item.classList.add("popup_opened");
 }
 
 const prepareElement = ({name, link}) => {
@@ -75,7 +48,7 @@ const prepareElement = ({name, link}) => {
         viewPlaceImage.src = link;
         viewPlaceImage.alt = name;
         viewPlaceCaption.textContent = name;
-        viewPlacePopupOpened();
+        openPopup(viewPlacePopup);
     })
     return item;
 };
@@ -84,33 +57,32 @@ const addElement = item => elements.append(prepareElement(item));
 initialCards.forEach(addElement);
 
 const editProfilePopupOpened = () => {
-    popup.classList.add("popup_opened");
+    openPopup(editProfilePopup);
     nameInput.value = profileName.textContent;
     jobInput.value = profileDescription.textContent;
 }
 
 const addPlacePopupOpened = () => {
-    addPlacePopup.classList.add("popup_opened");
+    openPopup(addPlacePopup);
 }
 
-const popupClosed = id => {
-    const popup = document.getElementById(id);
+const popupClosed = popup => {
     popup.classList.remove("popup_opened");
 }
 
 editBtn.addEventListener('click', editProfilePopupOpened);
-closePopUp.addEventListener('click', () => popupClosed('EditProfilePopup'));
+closePopUpBtn.addEventListener('click', () => popupClosed(editProfilePopup));
 
 addBtn.addEventListener('click', addPlacePopupOpened);
-addPlaceClosePopUp.addEventListener('click', () => popupClosed('AddPlacePopup'));
+addPlaceClosePopUpBtn.addEventListener('click', () => popupClosed(addPlacePopup));
 
-viewPlaceClosePopUp.addEventListener('click', () => popupClosed('ViewImagePopup'))
+viewPlaceClosePopUpBtn.addEventListener('click', () => popupClosed(viewPlacePopup))
 
-function formSubmitHandler(evt) {
+function editProfileFormSubmitHandler(evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileDescription.textContent = jobInput.value;
-    popupClosed('EditProfilePopup');
+    popupClosed(editProfilePopup);
 }
 
 function addPlaceFormSubmitHandler(evt) {
@@ -124,8 +96,8 @@ function addPlaceFormSubmitHandler(evt) {
         };
         elements.prepend(prepareElement(item));
     }
-    popupClosed('AddPlacePopup');
+    popupClosed(addPlacePopup);
 }
 
-formElement.addEventListener('submit', formSubmitHandler);
+editProfileForm.addEventListener('submit', editProfileFormSubmitHandler);
 addPlaceForm.addEventListener('submit', addPlaceFormSubmitHandler);

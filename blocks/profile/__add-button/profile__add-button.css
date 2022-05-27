@@ -9,11 +9,6 @@
     align-items: center;
 }
 
-.profile__add-button:hover {
-    cursor: pointer;
-    opacity: 0.6;
-}
-
 @media (max-width: 768px) {
     .profile__add-button {
         margin-top: 36px;

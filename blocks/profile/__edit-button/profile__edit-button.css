@@ -7,11 +7,6 @@
     background-size: cover;
 }
 
-.profile__edit-button:hover {
-    cursor: pointer;
-    opacity: 0.6;
-}
-
 @media (max-width: 425px) {
     .profile__edit-button {
         width: 18px;
