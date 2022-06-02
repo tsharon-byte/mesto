@@ -11,8 +11,8 @@ const jobInput = document.getElementById('description');
 const addPlacePopup = document.getElementById('addPlacePopup');
 const addPlaceClosePopUpBtn = addPlacePopup.querySelector('.popup__close-icon');
 const addPlaceForm = document.getElementById('addPlaceForm');
-const placeName = document.getElementById('place_name');
-const placeUrl = document.getElementById('place_url');
+const placeName = document.getElementById('place-name');
+const placeUrl = document.getElementById('place-url');
 
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
@@ -24,6 +24,16 @@ const viewPlaceClosePopUpBtn = viewPlacePopup.querySelector('.popup__close-icon'
 
 const openPopup = (item) => {
     item.classList.add("popup_opened");
+    document.addEventListener('keydown', closePopupByEsc);
+    const form = item.querySelector(validationConfig.formSelector);
+    if (form) {
+        ititiateForm(form, validationConfig);
+    }
+}
+
+const closePopup = popup => {
+    popup.classList.remove("popup_opened");
+    document.removeEventListener('keydown', closePopupByEsc);
 }
 
 const prepareElement = ({name, link}) => {
@@ -54,35 +64,19 @@ const prepareElement = ({name, link}) => {
 };
 
 const addElement = item => elements.append(prepareElement(item));
-initialCards.forEach(addElement);
 
 const editProfilePopupOpened = () => {
-    openPopup(editProfilePopup);
     nameInput.value = profileName.textContent;
     jobInput.value = profileDescription.textContent;
+    openPopup(editProfilePopup);
 }
-
-const addPlacePopupOpened = () => {
-    openPopup(addPlacePopup);
-}
-
-const popupClosed = popup => {
-    popup.classList.remove("popup_opened");
-}
-
-editBtn.addEventListener('click', editProfilePopupOpened);
-closePopUpBtn.addEventListener('click', () => popupClosed(editProfilePopup));
-
-addBtn.addEventListener('click', addPlacePopupOpened);
-addPlaceClosePopUpBtn.addEventListener('click', () => popupClosed(addPlacePopup));
-
-viewPlaceClosePopUpBtn.addEventListener('click', () => popupClosed(viewPlacePopup))
 
 function editProfileFormSubmitHandler(evt) {
     evt.preventDefault();
     profileName.textContent = nameInput.value;
     profileDescription.textContent = jobInput.value;
-    popupClosed(editProfilePopup);
+    closePopup(editProfilePopup);
+    evt.target.reset();
 }
 
 function addPlaceFormSubmitHandler(evt) {
@@ -96,8 +90,38 @@ function addPlaceFormSubmitHandler(evt) {
         };
         elements.prepend(prepareElement(item));
     }
-    popupClosed(addPlacePopup);
+    closePopup(addPlacePopup);
+    evt.target.reset();
+    setSubmitButtonState(addPlaceForm, validationConfig);
 }
 
+function closePopupByEsc(event) {
+    if (event.key === 'Escape') {
+        const popupList = Array.from(document.querySelectorAll('.popup'));
+        popupList.forEach(item => {
+            item.classList.remove("popup_opened");
+        });
+    }
+}
+
+function addEventListenersToPopup() {
+    const popupList = Array.from(document.querySelectorAll('.popup'));
+    popupList.forEach(item => {
+        item.addEventListener('click', event => {
+            if (event.target.classList.contains('popup')) {
+                closePopup(event.target);
+            }
+        })
+    })
+}
+
+editBtn.addEventListener('click', editProfilePopupOpened);
+closePopUpBtn.addEventListener('click', () => closePopup(editProfilePopup));
+addBtn.addEventListener('click', () => openPopup(addPlacePopup));
+addPlaceClosePopUpBtn.addEventListener('click', () => closePopup(addPlacePopup));
+viewPlaceClosePopUpBtn.addEventListener('click', () => closePopup(viewPlacePopup))
 editProfileForm.addEventListener('submit', editProfileFormSubmitHandler);
 addPlaceForm.addEventListener('submit', addPlaceFormSubmitHandler);
+
+initialCards.forEach(addElement);
+addEventListenersToPopup();

@@ -40,3 +40,6 @@
 @import url('../blocks/popup/__container/_size/popup__container_size_large.css');
 @import url('../blocks/figure/figure.css');
 @import url('../blocks/figure/__caption/figure__caption.css');
+@import url('../blocks/form/__submit/_disabled/form__submit_disabled.css');
+@import url('../blocks/input/_type/input_type_error.css');
+@import url('../blocks/form/__error/form__error.css');
