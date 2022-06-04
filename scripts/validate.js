@@ -6,13 +6,13 @@ const validationConfig = {
     inputErrorClass: 'input_type_error',
 };
 
-function fieldIsValid(item) {
+function checkFieldIsValid(item) {
     return item.validity.valid
 }
 
-function formIsValid(form, config) {
+function checkFormIsValid(form, config) {
     const inputArray = Array.from(form.querySelectorAll(config.inputSelector));
-    return inputArray.every(fieldIsValid);
+    return inputArray.every(checkFieldIsValid);
 }
 
 function getErrorElement(input) {
@@ -22,7 +22,7 @@ function getErrorElement(input) {
 function generateErrorMessage(input, config) {
     const error = getErrorElement(input);
     error.textContent = input.validationMessage;
-    if (fieldIsValid(input)) {
+    if (checkFieldIsValid(input)) {
         input.classList.remove(config.inputErrorClass);
     } else {
         input.classList.add(config.inputErrorClass);
@@ -31,7 +31,7 @@ function generateErrorMessage(input, config) {
 
 function setSubmitButtonState(form, config) {
     const submitButton = form.querySelector(config.submitButtonSelector);
-    if (formIsValid(form, config)) {
+    if (checkFormIsValid(form, config)) {
         submitButton.classList.remove(config.inactiveButtonClass);
         submitButton.removeAttribute("disabled");
     } else {
@@ -40,7 +40,7 @@ function setSubmitButtonState(form, config) {
     }
 }
 
-function ititiateForm(form, config) {
+function initiateForm(form, config) {
     const inputArray = Array.from(form.querySelectorAll(config.inputSelector));
     inputArray.forEach(item => generateErrorMessage(item, config));
     setSubmitButtonState(form, config);
