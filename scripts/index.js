@@ -9,7 +9,7 @@ const nameInput = document.getElementById('name');
 const jobInput = document.getElementById('description');
 
 const placeAddPopup = document.getElementById('placeAddPopup');
-const addPlaceClosePopUpBtn = placeAddPopup.querySelector('.popup__close-icon');
+const placeAddCloseBtn = placeAddPopup.querySelector('.popup__close-icon');
 const placeAddForm = document.getElementById('placeAddForm');
 const placeName = document.getElementById('place-name');
 const placeUrl = document.getElementById('place-url');
@@ -68,9 +68,17 @@ const editProfilePopupOpened = () => {
     openPopup(profilePopup);
 }
 
+const profilePopupClosed = () =>{
+    closePopup(profilePopup);
+}
+
 const placeAddPopupOpened = () => {
-    initiateForm(placeAddForm, validationConfig);
     openPopup(placeAddPopup);
+}
+
+const placeAddPopupClosed = () => {
+    initiateForm(placeAddForm, validationConfig);
+    closePopup(placeAddPopup);
 }
 
 function editProfileFormSubmitHandler(evt) {
@@ -116,9 +124,9 @@ function addEventListenersToPopup() {
 }
 
 editBtn.addEventListener('click', editProfilePopupOpened);
-profileCloseBtn.addEventListener('click', () => closePopup(profilePopup));
+profileCloseBtn.addEventListener('click', profilePopupClosed);
 addBtn.addEventListener('click', placeAddPopupOpened);
-addPlaceClosePopUpBtn.addEventListener('click', () => closePopup(placeAddPopup));
+placeAddCloseBtn.addEventListener('click', placeAddPopupClosed);
 placeViewerCloseBtn.addEventListener('click', () => closePopup(placeViewerPopup))
 profileForm.addEventListener('submit', editProfileFormSubmitHandler);
 placeAddForm.addEventListener('submit', addPlaceFormSubmitHandler);
