@@ -1,4 +1,4 @@
-import { initialCards } from "./initial-cards.js"
+import {initialCards} from "./initial-cards.js"
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
@@ -12,9 +12,9 @@ const validationConfig = {
 
 const CARD_TEMPLATE_SELECTOR = '#elementTemplate';
 
-const editBtn = document.querySelector('.profile__edit-button');
-const addBtn = document.querySelector('.profile__add-button');
-const elements = document.querySelector('.elements');
+const profileEditBtn = document.querySelector('.profile__edit-button');
+const cardAddBtn = document.querySelector('.profile__add-button');
+const cardsContainer = document.querySelector('.elements');
 
 const profilePopup = document.getElementById('profilePopup');
 const profileCloseBtn = profilePopup.querySelector('.popup__close-icon');
@@ -42,8 +42,9 @@ const closePopup = popup => {
     popup.classList.remove("popup_opened");
     document.removeEventListener('keydown', closePopupByEsc);
 }
+const createCard = item => (new Card(item, CARD_TEMPLATE_SELECTOR, handleCardClick)).createElement();
 
-const addElement = item => elements.append((new Card(item, CARD_TEMPLATE_SELECTOR, handleCardClick)).createElement());
+const addElement = item => cardsContainer.append(createCard(item));
 
 const editProfilePopupOpened = () => {
     nameInput.value = profileName.textContent;
@@ -70,7 +71,6 @@ function editProfileFormSubmitHandler(evt) {
     profileName.textContent = nameInput.value;
     profileDescription.textContent = jobInput.value;
     closePopup(profilePopup);
-    evt.target.reset();
 }
 
 function addPlaceFormSubmitHandler(evt) {
@@ -82,7 +82,7 @@ function addPlaceFormSubmitHandler(evt) {
             name,
             link
         };
-        elements.prepend((new Card(item, CARD_TEMPLATE_SELECTOR, handleCardClick)).createElement());
+        cardsContainer.prepend(createCard(item));
     }
     closePopup(placeAddPopup);
     evt.target.reset();
@@ -97,7 +97,7 @@ function closePopupByEsc(event) {
 }
 
 function addEventListenersToPopup() {
-    const popupList = Array.from(document.querySelectorAll('.popup'));
+    const popupList = document.querySelectorAll('.popup');
     popupList.forEach(item => {
         item.addEventListener('click', event => {
             if (event.target.classList.contains('popup')) {
@@ -122,9 +122,9 @@ export const handleCardClick = (data) => {
 placeViewerCloseBtn.addEventListener('click', () => closePopup(placeViewerPopup))
 //-------------------------------------------
 
-editBtn.addEventListener('click', editProfilePopupOpened);
+profileEditBtn.addEventListener('click', editProfilePopupOpened);
 profileCloseBtn.addEventListener('click', profilePopupClosed);
-addBtn.addEventListener('click', placeAddPopupOpened);
+cardAddBtn.addEventListener('click', placeAddPopupOpened);
 placeAddCloseBtn.addEventListener('click', placeAddPopupClosed);
 profileForm.addEventListener('submit', editProfileFormSubmitHandler);
 placeAddForm.addEventListener('submit', addPlaceFormSubmitHandler);

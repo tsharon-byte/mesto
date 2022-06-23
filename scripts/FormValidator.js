@@ -2,6 +2,8 @@ class FormValidator {
     constructor(config, formElement) {
         this._form = formElement;
         this._config = config;
+        this._inputArray = Array.from(this._form.querySelectorAll(this._config.inputSelector));
+        this._submitButton = this._form.querySelector(this._config.submitButtonSelector);
     }
 
     _checkFieldIsValid(item) {
@@ -9,8 +11,7 @@ class FormValidator {
     }
 
     _checkFormIsValid() {
-        const inputArray = Array.from(this._form.querySelectorAll(this._config.inputSelector));
-        return inputArray.every(this._checkFieldIsValid);
+        return this._inputArray.every(this._checkFieldIsValid);
     }
 
     _getErrorElement(input) {
@@ -28,26 +29,24 @@ class FormValidator {
     }
 
     setSubmitButtonState() {
-        const submitButton = this._form.querySelector(this._config.submitButtonSelector);
         if (this._checkFormIsValid()) {
-            submitButton.classList.remove(this._config.inactiveButtonClass);
-            submitButton.removeAttribute("disabled");
+            this._submitButton.classList.remove(this._config.inactiveButtonClass);
+            this._submitButton.removeAttribute("disabled");
         } else {
-            submitButton.classList.add(this._config.inactiveButtonClass);
-            submitButton.setAttribute("disabled", "disabled");
+            this._submitButton.classList.add(this._config.inactiveButtonClass);
+            this._submitButton.setAttribute("disabled", "disabled");
         }
     }
 
     initiateForm() {
-        const inputArray = Array.from(this._form.querySelectorAll(this._config.inputSelector));
-        inputArray.forEach(item => this._generateErrorMessage(item));
-        this.setSubmitButtonState(this._form, this._config);
+        this._inputArray.forEach(item => this._generateErrorMessage(item));
+        this.setSubmitButtonState();
     }
 
     _setEventListeners() {
         this._form.addEventListener('input', (event) => {
             this._generateErrorMessage(event.target, this._config);
-            this.setSubmitButtonState(this._form, this._config);
+            this.setSubmitButtonState();
         })
     }
 
