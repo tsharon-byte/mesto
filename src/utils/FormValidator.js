@@ -17,6 +17,11 @@ class FormValidator {
     _getErrorElement(input) {
         return document.getElementById(`${input.id}-error`);
     }
+    _resetErrorMessage(input) {
+        const error = this._getErrorElement(input);
+        error.textContent = '';
+        input.classList.remove(this._config.inputErrorClass);
+    }
 
     _generateErrorMessage(input) {
         const error = this._getErrorElement(input);
@@ -39,7 +44,7 @@ class FormValidator {
     }
 
     initiateForm() {
-        this._inputArray.forEach(item => this._generateErrorMessage(item));
+        this._inputArray.forEach(item => this._resetErrorMessage(item));
         this.setSubmitButtonState();
     }
 
