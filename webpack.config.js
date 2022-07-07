@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const isDev = process.env.NODE_ENV === 'development';
 const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`;
+const publicPath = () =>isDev ?'/':'/mesto';
 module.exports = {
     mode: "development",
     context: path.resolve(__dirname, "src"),
@@ -13,7 +14,7 @@ module.exports = {
     output: {
         filename: filename('js'),
         path: path.resolve(__dirname, 'dist'),
-        publicPath: '/mesto'
+        publicPath: publicPath()
     },
     resolve: {
         extensions: ['.js', ',json'],
