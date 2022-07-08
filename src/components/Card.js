@@ -1,9 +1,12 @@
+import {CLICK_ACTION} from "../utils/constants";
+
 class Card {
     constructor({name, link}, selector, handleCardClick) {
         this._name = name;
         this._link = link;
         this._selector = selector;
         this._handleCardClick = handleCardClick;
+        this._remove = this._remove.bind(this);
     }
 
     _getTemplate() {
@@ -28,12 +31,20 @@ class Card {
         return this._element;
     }
 
+    _like(event) {
+        event.target.classList.toggle('active');
+    }
+
+    _remove() {
+        this._element.remove();
+    }
+
     _setEventListeners() {
-        this._element.addEventListener('click', event => {
+        this._element.addEventListener(CLICK_ACTION, event => {
             if (event.target.classList.contains('elements__like')) {
-                event.target.classList.toggle('active');
+                this._like(event);
             } else if (event.target.classList.contains('elements__delete')) {
-                this._element.remove();
+                this._remove();
             } else {
                 this._handleCardClick({link: this._link, name: this._name});
             }

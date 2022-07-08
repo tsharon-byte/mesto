@@ -2,15 +2,15 @@ const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const isDev = process.env.NODE_ENV === 'development';
 const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`;
 const publicPath = () =>isDev ?'/':'/mesto';
+const autoprefixer = require('autoprefixer');
 module.exports = {
     mode: "development",
     context: path.resolve(__dirname, "src"),
-    entry: ['@babel/polyfill', './pages/index.js'],
-    devtool: isDev ? 'source-map' : 'hidden-source-map',
+    entry: './pages/index.js',
+    devtool: isDev ? 'source-map' : false,
     output: {
         filename: filename('js'),
         path: path.resolve(__dirname, 'dist'),
@@ -23,9 +23,6 @@ module.exports = {
         }
     },
     optimization: {
-        minimizer: [
-            new CssMinimizerPlugin(),
-        ],
         splitChunks: {
             chunks: "all"
         }
@@ -46,7 +43,8 @@ module.exports = {
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: filename('css')
-        })
+        }),
+        autoprefixer,
     ],
     module: {
         rules: [

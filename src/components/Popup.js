@@ -1,7 +1,8 @@
+import {CLICK_ACTION} from "../utils/constants";
+
 class Popup {
     constructor(selector) {
         this._element = document.querySelector(selector);
-        this._popupCloseButton = this._element.querySelector('.popup__close-icon');
         this._handleEscClose = this._handleEscClose.bind(this);
     }
 
@@ -22,7 +23,11 @@ class Popup {
     }
 
     _setEventListeners() {
-        this._popupCloseButton.addEventListener('click', () => this.close());
+        this._element.addEventListener(CLICK_ACTION, (evt) => {
+            if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-icon')) {
+                this.close();
+            }
+        });
     }
 }
 

@@ -16,6 +16,11 @@ class PopupWithForm extends Popup {
         return this;
     }
 
+    getForm() {
+        this._form = document.getElementById(`${this._element.id}Form`);
+        return this._form;
+    }
+
     open() {
         super.open();
         this._validator.initiateForm();
@@ -45,6 +50,11 @@ class PopupWithForm extends Popup {
             this._onSubmit(this._getInputValues());
             this._form.reset();
         });
+    }
+
+    close() {
+        super.close();
+        this._form.reset();
     }
 }
 

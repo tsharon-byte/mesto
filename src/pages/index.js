@@ -6,50 +6,68 @@ import {initialCards} from '../utils/initial-cards.js'
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import {
+    CARD_ELEMENT_TEMPLATE_SELECTOR,
     cardAddBtn,
-    profileEditBtn
+    CARDS_CONTAINER_SELECTOR,
+    CLICK_ACTION,
+    PLACE_ADD_POPUP_SELECTOR,
+    PLACE_VIEWER_POPUP_SELECTOR,
+    PROFILE_POPUP_SELECTOR,
+    profileEditBtn,
+    USER_DESCRIPTION_SELECTOR,
+    USER_NAME_SELECTOR
 } from "../utils/constants";
+import FormValidator from "../utils/FormValidator";
+import validationConfig from "../utils/config";
 
-const createCard = item => (new Card(item, '#elementTemplate', data => popupWithImage.open(data))).createElement();
+const createCard = item => new Card(item,
+    CARD_ELEMENT_TEMPLATE_SELECTOR,
+    data => popupWithImage.open(data)).createElement();
 
 function editProfileFormSubmitHandler({name, description}) {
     userInfo.setUserInfo({name, description});
     profilePopupWithForm.close();
 }
 
-function addPlaceFormSubmitHandler({place_name: name, place_url: link}) {
-    if (name && link) {
-        cardsContainer.addItem(createCard({name, link}));
-    }
+function addPlaceFormSubmitHandler({placeName: name, placeUrl: link}) {
+    cardsContainer.addItem(createCard({name, link}));
     placeAddPopupWithForm.close();
 }
 
 // Create popup with image
-const popupWithImage = new PopupWithImage('#placeViewerPopup');
+const popupWithImage = new PopupWithImage(PLACE_VIEWER_POPUP_SELECTOR);
 // Create new section for cards
 const cardsContainer = new Section({
     items: initialCards,
     renderer: createCard
-}, '.elements');
+}, CARDS_CONTAINER_SELECTOR);
 
 // Create class instance for user information
 const userInfo = new UserInfo({
-    nameSelector: '.profile__name',
-    descriptionSelector: '.profile__description'
+    nameSelector: USER_NAME_SELECTOR,
+    descriptionSelector: USER_DESCRIPTION_SELECTOR
 });
 
 // Create popup to edit user profile
-const profilePopupWithForm = (new PopupWithForm('#profilePopup', editProfileFormSubmitHandler)).createElement();
+const profilePopupWithForm = new PopupWithForm(
+    PROFILE_POPUP_SELECTOR,
+    editProfileFormSubmitHandler).createElement();
+const profilePopupWithFormValidator = new FormValidator(validationConfig, profilePopupWithForm.getForm());
+profilePopupWithFormValidator.enableValidation();
 
 // Create popup to add new card
-const placeAddPopupWithForm = (new PopupWithForm('#placeAddPopup', addPlaceFormSubmitHandler)).createElement();
+const placeAddPopupWithForm = new PopupWithForm(
+    PLACE_ADD_POPUP_SELECTOR,
+    addPlaceFormSubmitHandler).createElement();
+const placeAddPopupWithFormValidator = new FormValidator(validationConfig, placeAddPopupWithForm.getForm());
+placeAddPopupWithFormValidator.enableValidation();
 
 // Add event listeners
-profileEditBtn.addEventListener('click', () => {
+profileEditBtn.addEventListener(CLICK_ACTION, () => {
     profilePopupWithForm.setFormValues(userInfo.getUserInfo())
     profilePopupWithForm.open();
 });
-cardAddBtn.addEventListener('click', () => {
+cardAddBtn.addEventListener(CLICK_ACTION, () => {
     placeAddPopupWithForm.open();
 });
 
