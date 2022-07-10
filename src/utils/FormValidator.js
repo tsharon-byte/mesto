@@ -36,10 +36,10 @@ class FormValidator {
     setSubmitButtonState() {
         if (this._checkFormIsValid()) {
             this._submitButton.classList.remove(this._config.inactiveButtonClass);
-            this._submitButton.removeAttribute("disabled");
+            this._submitButton.removeAttribute('disabled');
         } else {
             this._submitButton.classList.add(this._config.inactiveButtonClass);
-            this._submitButton.setAttribute("disabled", "disabled");
+            this._submitButton.setAttribute('disabled', 'disabled');
         }
     }
 

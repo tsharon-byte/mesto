@@ -1,4 +1,4 @@
-import {CLICK_ACTION} from "../utils/constants";
+import {CLICK_ACTION} from '../utils/constants';
 
 class Popup {
     constructor(selector) {
@@ -12,7 +12,7 @@ class Popup {
     }
 
     close() {
-        this._element.classList.remove("popup_opened");
+        this._element.classList.remove('popup_opened');
         document.removeEventListener('keydown', this._handleEscClose);
     }
 

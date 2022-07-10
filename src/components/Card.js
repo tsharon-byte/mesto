@@ -1,4 +1,4 @@
-import {CLICK_ACTION} from "../utils/constants";
+import {CLICK_ACTION} from '../utils/constants';
 
 class Card {
     constructor({name, link}, selector, handleCardClick) {
@@ -32,23 +32,21 @@ class Card {
     }
 
     _like(event) {
+        event.stopPropagation();
         event.target.classList.toggle('active');
     }
 
-    _remove() {
+    _remove(event) {
+        event.stopPropagation();
         this._element.remove();
     }
 
     _setEventListeners() {
-        this._element.addEventListener(CLICK_ACTION, event => {
-            if (event.target.classList.contains('elements__like')) {
-                this._like(event);
-            } else if (event.target.classList.contains('elements__delete')) {
-                this._remove();
-            } else {
-                this._handleCardClick({link: this._link, name: this._name});
-            }
-        })
+        this._element.addEventListener(CLICK_ACTION, () => {
+            this._handleCardClick({link: this._link, name: this._name});
+        });
+        this._element.querySelector('.elements__like').addEventListener(CLICK_ACTION, this._like);
+        this._element.querySelector('.elements__delete').addEventListener(CLICK_ACTION, this._remove);
     }
 }
 

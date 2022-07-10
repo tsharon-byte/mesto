@@ -16,9 +16,9 @@ import {
     profileEditBtn,
     USER_DESCRIPTION_SELECTOR,
     USER_NAME_SELECTOR
-} from "../utils/constants";
-import FormValidator from "../utils/FormValidator";
-import validationConfig from "../utils/config";
+} from '../utils/constants';
+import FormValidator from '../utils/FormValidator';
+import validationConfig from '../utils/config';
 
 const createCard = item => new Card(item,
     CARD_ELEMENT_TEMPLATE_SELECTOR,
