@@ -1,9 +1,12 @@
+import {OPEN_EVENT} from "../utils/constants";
+
 class FormValidator {
     constructor(config, formElement) {
         this._form = formElement;
         this._config = config;
         this._inputArray = Array.from(this._form.querySelectorAll(this._config.inputSelector));
         this._submitButton = this._form.querySelector(this._config.submitButtonSelector);
+        this.initiateForm = this.initiateForm.bind(this);
     }
 
     _checkFieldIsValid(item) {
@@ -17,6 +20,7 @@ class FormValidator {
     _getErrorElement(input) {
         return document.getElementById(`${input.id}-error`);
     }
+
     _resetErrorMessage(input) {
         const error = this._getErrorElement(input);
         error.textContent = '';
@@ -52,7 +56,11 @@ class FormValidator {
         this._form.addEventListener('input', (event) => {
             this._generateErrorMessage(event.target, this._config);
             this.setSubmitButtonState();
-        })
+        });
+        this._form.addEventListener(OPEN_EVENT, () => {
+                this.initiateForm();
+            }
+        )
     }
 
     enableValidation() {

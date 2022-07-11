@@ -1,6 +1,5 @@
 import Popup from './Popup';
-import FormValidator from '../utils/FormValidator';
-import validationConfig from '../utils/config';
+import {OPEN_EVENT} from "../utils/constants";
 
 class PopupWithForm extends Popup {
     constructor(selector, onSubmit) {
@@ -10,8 +9,7 @@ class PopupWithForm extends Popup {
 
     createElement() {
         this._form = document.getElementById(`${this._element.id}Form`);
-        this._validator = new FormValidator(validationConfig, this._form);
-        this._validator.enableValidation();
+        this._openEvent = new Event(OPEN_EVENT);
         this._setEventListeners();
         return this;
     }
@@ -23,7 +21,7 @@ class PopupWithForm extends Popup {
 
     open() {
         super.open();
-        this._validator.initiateForm();
+        this._form.dispatchEvent(this._openEvent);
     }
 
     _getInputValues() {

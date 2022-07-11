@@ -1,4 +1,4 @@
-import {CLICK_ACTION} from '../utils/constants';
+import {CLICK_EVENT} from '../utils/constants';
 
 class Card {
     constructor({name, link}, selector, handleCardClick) {
@@ -42,11 +42,11 @@ class Card {
     }
 
     _setEventListeners() {
-        this._element.addEventListener(CLICK_ACTION, () => {
+        this._element.addEventListener(CLICK_EVENT, () => {
             this._handleCardClick({link: this._link, name: this._name});
         });
-        this._element.querySelector('.elements__like').addEventListener(CLICK_ACTION, this._like);
-        this._element.querySelector('.elements__delete').addEventListener(CLICK_ACTION, this._remove);
+        this._element.querySelector('.elements__like').addEventListener(CLICK_EVENT, this._like);
+        this._element.querySelector('.elements__delete').addEventListener(CLICK_EVENT, this._remove);
     }
 }
 

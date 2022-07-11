@@ -1,4 +1,4 @@
-import {CLICK_ACTION} from '../utils/constants';
+import {CLICK_EVENT} from '../utils/constants';
 
 class Popup {
     constructor(selector) {
@@ -23,7 +23,7 @@ class Popup {
     }
 
     _setEventListeners() {
-        this._element.addEventListener(CLICK_ACTION, (evt) => {
+        this._element.addEventListener(CLICK_EVENT, (evt) => {
             if (evt.target.classList.contains('popup') || evt.target.classList.contains('popup__close-icon')) {
                 this.close();
             }

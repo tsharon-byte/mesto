@@ -9,7 +9,7 @@ import {
     CARD_ELEMENT_TEMPLATE_SELECTOR,
     cardAddBtn,
     CARDS_CONTAINER_SELECTOR,
-    CLICK_ACTION,
+    CLICK_EVENT,
     PLACE_ADD_POPUP_SELECTOR,
     PLACE_VIEWER_POPUP_SELECTOR,
     PROFILE_POPUP_SELECTOR,
@@ -17,7 +17,7 @@ import {
     USER_DESCRIPTION_SELECTOR,
     USER_NAME_SELECTOR
 } from '../utils/constants';
-import FormValidator from '../utils/FormValidator';
+import FormValidator from '../components/FormValidator';
 import validationConfig from '../utils/config';
 
 const createCard = item => new Card(item,
@@ -63,11 +63,11 @@ const placeAddPopupWithFormValidator = new FormValidator(validationConfig, place
 placeAddPopupWithFormValidator.enableValidation();
 
 // Add event listeners
-profileEditBtn.addEventListener(CLICK_ACTION, () => {
+profileEditBtn.addEventListener(CLICK_EVENT, () => {
     profilePopupWithForm.setFormValues(userInfo.getUserInfo())
     profilePopupWithForm.open();
 });
-cardAddBtn.addEventListener(CLICK_ACTION, () => {
+cardAddBtn.addEventListener(CLICK_EVENT, () => {
     placeAddPopupWithForm.open();
 });
 
