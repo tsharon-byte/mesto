@@ -8,23 +8,30 @@
     </head>
     <body class="root">
         <div class="page">
+            <div class="snackbar"></div>
             <header class="header">
                 <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Логотип">
             </header>
             <main class="content">
                 <section class="profile">
                     <div class="profile__info-group">
-                        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+                        <div class="avatar">
+                            <img class="avatar__picture" src="#" alt="Аватар">
+                            <div class="avatar__button">
+                                <button class="image-button avatar__edit-button" type="button"></button>
+                            </div>
+                        </div>
                         <div class="profile__info">
                             <div class="profile__title">
-                                <h1 class="profile__name">Жак-Ив Кусто</h1>
+                                <h1 class="profile__name"></h1>
                                 <button class="image-button profile__edit-button" type="button"></button>
                             </div>
-                            <p class="profile__description">Исследователь океана</p>
+                            <p class="profile__description"></p>
                         </div>
                     </div>
-                    <button class="image-button profile__add-button" type="button"><img src="<%=require('./images/add.svg')%>"
-                                                                                        alt="Добавить"></button>
+                    <button class="image-button profile__add-button" type="button"><img
+                            src="<%=require('./images/add.svg')%>"
+                            alt="Добавить"></button>
                 </section>
                 <section class="elements">
                     <template id="elementTemplate">
@@ -34,7 +41,10 @@
                                  alt='Байкал'>
                             <div class="elements__title">
                                 <h2 class="elements__name">Байкал</h2>
-                                <button class="image-button elements__like" type="button"></button>
+                                <div class="elements__likes-container">
+                                    <button class="image-button elements__like" type="button"></button>
+                                    <span class="elements__likes-count">5</span>
+                                </div>
                             </div>
                             <button class="image-button elements__delete" type="button"></button>
                         </div>
@@ -50,9 +60,9 @@
                     <input class="input form__name" id="name" name="name" type="text" required minlength="2"
                            maxlength="40" placeholder="Имя">
                     <span class="form__error" id="name-error"> </span>
-                    <input class="input form__description" id="description" name="description" type="text" required
+                    <input class="input form__description" id="about" name="about" type="text" required
                            minlength="2" maxlength="200" placeholder="Профессия">
-                    <span class="form__error" id="description-error"> </span>
+                    <span class="form__error" id="about-error"> </span>
                     <button class="button form__submit" type="submit">Сохранить</button>
                 </form>
                 <button class="image-button popup__close-icon" type="button"></button>
@@ -69,6 +79,27 @@
                            required>
                     <span class="form__error" id="place-url-error"> </span>
                     <button class="button form__submit form__submit_disabled" type="submit" disabled>Создать</button>
+                </form>
+                <button class="image-button popup__close-icon" type="button"></button>
+            </div>
+        </div>
+        <div class="popup" id="avatarEditPopup">
+            <div class="popup__container">
+                <form class="form" name="avatar-place-form" id="avatarEditPopupForm" novalidate>
+                    <h2 class="form__title">Обновить аватар</h2>
+                    <input class="input form__name" id="avatar" name="avatar"
+                           placeholder="URL аватара" required type="url">
+                    <span class="form__error" id="avatar-error"> </span>
+                    <button class="button form__submit form__submit_disabled" type="submit" disabled>Сохранить</button>
+                </form>
+                <button class="image-button popup__close-icon" type="button"></button>
+            </div>
+        </div>
+        <div class="popup" id="cardDeletePopup">
+            <div class="popup__container">
+                <form class="form" name="card-delete-form" id="cardDeletePopupForm" novalidate>
+                    <h2 class="form__title">Вы уверены?</h2>
+                    <button class="button form__submit" type="submit">Да</button>
                 </form>
                 <button class="image-button popup__close-icon" type="button"></button>
             </div>

@@ -9,3 +9,7 @@
     overflow: hidden;
     position: relative;
 }
+
+.elements__item:hover {
+    transform: scale(1.1);
+}

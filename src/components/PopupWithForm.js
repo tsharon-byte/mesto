@@ -19,8 +19,9 @@ class PopupWithForm extends Popup {
         return this._form;
     }
 
-    open() {
+    open(callback) {
         super.open();
+        this._callback = callback;
         this._form.dispatchEvent(this._openEvent);
     }
 
@@ -45,6 +46,9 @@ class PopupWithForm extends Popup {
         this._form = document.getElementById(`${this._element.id}Form`);
         this._form.addEventListener('submit', evt => {
             evt.preventDefault();
+            if (this._callback) {
+                this._callback();
+            }
             this._onSubmit(this._getInputValues());
             this._form.reset();
         });

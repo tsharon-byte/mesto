@@ -4,7 +4,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const isDev = process.env.NODE_ENV === 'development';
 const filename = ext => isDev ? `[name].${ext}` : `[name].[hash].${ext}`;
-const publicPath = () =>isDev ?'/':'/mesto';
+const publicPath = () =>isDev ?'/':'/mesto/';
 const autoprefixer = require('autoprefixer');
 module.exports = {
     mode: "development",
