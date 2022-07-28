@@ -7,7 +7,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "start": "cross-env NODE_ENV=development webpack serve",
-    "dev": "cross-env NODE_ENV=development webpack",
+    "dev": "cross-env NODE_ENV=development webpack serve",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
     "watch": "cross-env NODE_ENV=development webpack --watch"

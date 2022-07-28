@@ -4,21 +4,21 @@ import Section from '../components/Section';
 import PopupWithForm from '../components/PopupWithForm';
 import {
     addPlaceFormSubmitBtn,
-    api,
     AVATAR_EDIT_POPUP_SELECTOR, avatarBtn, avatarEditFormSubmitBtn, CARD_DELETE_POPUP_SELECTOR,
     CARD_ELEMENT_TEMPLATE_SELECTOR,
     cardAddBtn,
     CARDS_CONTAINER_SELECTOR,
     CLICK_EVENT, editProfileFormSubmitBtn,
     PLACE_ADD_POPUP_SELECTOR,
-    popupWithImage,
     PROFILE_POPUP_SELECTOR,
     profileEditBtn,
-    userInfo,
-    showError
+    showError, USER_NAME_SELECTOR, USER_DESCRIPTION_SELECTOR, PROFILE_AVATAR_SELECTOR, PLACE_VIEWER_POPUP_SELECTOR
 } from '../utils/constants';
 import FormValidator from '../components/FormValidator';
 import validationConfig from '../utils/config';
+import UserInfo from "../components/UserInfo";
+import PopupWithImage from "../components/PopupWithImage";
+import Api from "../components/Api";
 
 function main() {
 
@@ -62,6 +62,21 @@ function main() {
     function cardDeleteFormSubmitHandler() {
         cardDeletePopupWithForm.close();
     }
+    const userInfo = new UserInfo({
+        nameSelector: USER_NAME_SELECTOR,
+        descriptionSelector: USER_DESCRIPTION_SELECTOR,
+        avatarSelector: PROFILE_AVATAR_SELECTOR
+    });
+
+    const popupWithImage = new PopupWithImage(PLACE_VIEWER_POPUP_SELECTOR);
+
+    const api = new Api({
+        baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-46',
+        headers: {
+            authorization: 'c330429b-3b89-464c-a07c-3bb6ae16281d',
+            'Content-Type': 'application/json'
+        }
+    });
 
     const cardsContainer = new Section({
         renderer: createCard

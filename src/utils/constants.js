@@ -1,7 +1,3 @@
-import UserInfo from "../components/UserInfo";
-import PopupWithImage from "../components/PopupWithImage";
-import Api from "../components/Api";
-
 export const CARD_ELEMENT_TEMPLATE_SELECTOR = '#elementTemplate';
 export const PLACE_VIEWER_POPUP_SELECTOR = '#placeViewerPopup';
 export const USER_NAME_SELECTOR = '.profile__name';
@@ -27,21 +23,6 @@ export const snackbar = document.querySelector(SNACKBAR_SELECTOR);
 export const addPlaceFormSubmitBtn = document.querySelector(PLACE_ADD_POPUP_SELECTOR).querySelector(SUBMIT_BTN_SELECTOR);
 export const avatarEditFormSubmitBtn = document.querySelector(AVATAR_EDIT_POPUP_SELECTOR).querySelector(SUBMIT_BTN_SELECTOR)
 export const editProfileFormSubmitBtn = document.querySelector(PROFILE_POPUP_SELECTOR).querySelector(SUBMIT_BTN_SELECTOR)
-export const userInfo = new UserInfo({
-    nameSelector: USER_NAME_SELECTOR,
-    descriptionSelector: USER_DESCRIPTION_SELECTOR,
-    avatarSelector: PROFILE_AVATAR_SELECTOR
-});
-
-export const popupWithImage = new PopupWithImage(PLACE_VIEWER_POPUP_SELECTOR);
-
-export const api = new Api({
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-46',
-    headers: {
-        authorization: 'c330429b-3b89-464c-a07c-3bb6ae16281d',
-        'Content-Type': 'application/json'
-    }
-});
 
 export function showError(err) {
     snackbar.classList.add(SNACKBAR_VISIBLE_CLASS);
