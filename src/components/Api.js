@@ -8,16 +8,17 @@ class Api {
         this._get = this._get.bind(this);
         this._patch = this._patch.bind(this);
     }
+    _checkResponse(res){
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
 
     _get(ep) {
         return fetch(this._baseUrl + ep, {
             headers: this._headers
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+        }).then(this._checkResponse);
     }
 
     _patch(ep, data) {
@@ -25,12 +26,7 @@ class Api {
             headers: this._headers,
             method: 'PATCH',
             body: JSON.stringify(data)
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+        }).then(this._checkResponse);
     }
 
     _post(ep, data) {
@@ -38,36 +34,21 @@ class Api {
             headers: this._headers,
             method: 'POST',
             body: JSON.stringify(data)
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+        }).then(this._checkResponse);
     }
 
     _put(ep, data) {
         return fetch(this._baseUrl + ep, {
             headers: this._headers,
             method: 'PUT',
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+        }).then(this._checkResponse);
     }
 
     _delete(ep, cardId) {
         return fetch(this._baseUrl + ep, {
             headers: this._headers,
             method: 'DELETE',
-        }).then(res => {
-            if (res.ok) {
-                return res.json();
-            }
-            return Promise.reject(`Ошибка: ${res.status}`);
-        });
+        }).then(this._checkResponse);
     }
 
     getInitialCards() {

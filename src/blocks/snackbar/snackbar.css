@@ -10,6 +10,7 @@
     position: fixed;
     bottom: 30px;
     left: 25%;
+    z-index: 20000;
 }
 
 .snackbar.show {

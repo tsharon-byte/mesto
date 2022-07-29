@@ -3,12 +3,11 @@ import './index.css';
 import Section from '../components/Section';
 import PopupWithForm from '../components/PopupWithForm';
 import {
-    addPlaceFormSubmitBtn,
-    AVATAR_EDIT_POPUP_SELECTOR, avatarBtn, avatarEditFormSubmitBtn, CARD_DELETE_POPUP_SELECTOR,
+    AVATAR_EDIT_POPUP_SELECTOR, avatarBtn, CARD_DELETE_POPUP_SELECTOR,
     CARD_ELEMENT_TEMPLATE_SELECTOR,
     cardAddBtn,
     CARDS_CONTAINER_SELECTOR,
-    CLICK_EVENT, editProfileFormSubmitBtn,
+    MOUSE_DOWN_EVENT,
     PLACE_ADD_POPUP_SELECTOR,
     PROFILE_POPUP_SELECTOR,
     profileEditBtn,
@@ -20,8 +19,7 @@ import UserInfo from "../components/UserInfo";
 import PopupWithImage from "../components/PopupWithImage";
 import Api from "../components/Api";
 
-function main() {
-
+(function () {
     function createCard(item) {
         return new Card(item,
             CARD_ELEMENT_TEMPLATE_SELECTOR,
@@ -32,36 +30,34 @@ function main() {
             cardDeletePopupWithForm).createElement();
     }
 
-    function editProfileFormSubmitHandler(data) {
-        editProfileFormSubmitBtn.textContent = 'Сохранение...';
+    function handleProfileFormSubmit(data) {
+        profilePopupWithForm.renderLoading(true);
         api.patchUserInfo(data).then(data => {
             userInfo.setUserInfo(data);
-            editProfileFormSubmitBtn.textContent = 'Сохранить';
             profilePopupWithForm.close();
-        }).catch(() => showError('Ошибка редактирования данных пользователя'));
+        }).catch(showError).finally(() => profilePopupWithForm.renderLoading(false));
     }
 
-    function addPlaceFormSubmitHandler({placeName: name, placeUrl: link}) {
-        addPlaceFormSubmitBtn.textContent = 'Создание...';
+    function handleAddPlaceFormSubmit({placeName: name, placeUrl: link}) {
+        placeAddPopupWithForm.renderLoading(true, 'Создание...');
         api.postCard({name, link}).then(({name, link, _id, likes}) => {
             cardsContainer.addItem(createCard({name, link, _id, isMine: true, likes}));
-            addPlaceFormSubmitBtn.textContent = 'Создать';
             placeAddPopupWithForm.close();
-        }).catch(() => showError('Ошибка добавления места'));
+        }).catch(showError).finally(() => placeAddPopupWithForm.renderLoading(false));
     }
 
-    function avatarEditFormSubmitHandler({avatar}) {
-        avatarEditFormSubmitBtn.textContent = 'Сохранение...';
+    function handleEditAvatarFormSubmit({avatar}) {
+        avatarEditPopupWithForm.renderLoading(true);
         api.patchAvatar({avatar}).then((data) => {
-            userInfo.setAvatar(data);
-            avatarEditFormSubmitBtn.textContent = 'Сохранить';
+            userInfo.setUserInfo(data);
             avatarEditPopupWithForm.close();
-        }).catch(() => showError('Ошибка обновления аватара пользователя'));
+        }).catch(showError).finally(() => avatarEditPopupWithForm.renderLoading(false));
     }
 
-    function cardDeleteFormSubmitHandler() {
+    function handleDeleteCardFormSubmit() {
         cardDeletePopupWithForm.close();
     }
+
     const userInfo = new UserInfo({
         nameSelector: USER_NAME_SELECTOR,
         descriptionSelector: USER_DESCRIPTION_SELECTOR,
@@ -84,25 +80,25 @@ function main() {
 
     const profilePopupWithForm = new PopupWithForm(
         PROFILE_POPUP_SELECTOR,
-        editProfileFormSubmitHandler).createElement();
+        handleProfileFormSubmit).createElement();
     const profilePopupWithFormValidator = new FormValidator(validationConfig, profilePopupWithForm.getForm());
     profilePopupWithFormValidator.enableValidation();
 
     const placeAddPopupWithForm = new PopupWithForm(
         PLACE_ADD_POPUP_SELECTOR,
-        addPlaceFormSubmitHandler).createElement();
+        handleAddPlaceFormSubmit).createElement();
     const placeAddPopupWithFormValidator = new FormValidator(validationConfig, placeAddPopupWithForm.getForm());
     placeAddPopupWithFormValidator.enableValidation();
 
     const avatarEditPopupWithForm = new PopupWithForm(
         AVATAR_EDIT_POPUP_SELECTOR,
-        avatarEditFormSubmitHandler).createElement();
+        handleEditAvatarFormSubmit).createElement();
     const avatarEditPopupWithFormValidator = new FormValidator(validationConfig, avatarEditPopupWithForm.getForm());
     avatarEditPopupWithFormValidator.enableValidation();
 
     const cardDeletePopupWithForm = new PopupWithForm(
         CARD_DELETE_POPUP_SELECTOR,
-        cardDeleteFormSubmitHandler).createElement();
+        handleDeleteCardFormSubmit).createElement();
 
     api.getUserInfo().then(user => {
         userInfo.setUserInfo(user);
@@ -115,22 +111,20 @@ function main() {
                 userId: user._id,
                 likes
             })));
-        }).catch(() => showError('Ошибка получения карточек'));
-    }).catch(() => showError('Ошибка получения данных пользователя'));
+        }).catch(showError);
+    }).catch(showError);
 
-    profileEditBtn.addEventListener(CLICK_EVENT, () => {
+    profileEditBtn.addEventListener(MOUSE_DOWN_EVENT, () => {
         profilePopupWithForm.setFormValues(userInfo.getUserInfo())
         profilePopupWithForm.open();
     });
-    cardAddBtn.addEventListener(CLICK_EVENT, () => {
+    cardAddBtn.addEventListener(MOUSE_DOWN_EVENT, () => {
         placeAddPopupWithForm.open();
     });
-    avatarBtn.addEventListener(CLICK_EVENT, () => {
+    avatarBtn.addEventListener(MOUSE_DOWN_EVENT, () => {
         avatarEditPopupWithForm.open();
     });
-}
-
-main();
+})();
 
 
 

@@ -1,4 +1,4 @@
-import {CLICK_EVENT} from '../utils/constants';
+import {MOUSE_DOWN_EVENT, showError, UPDATE_LIKE_ERROR_MESSAGE} from '../utils/constants';
 
 class Card {
     constructor({
@@ -21,9 +21,9 @@ class Card {
         this._putLikePromise = handlePutLike;
         this._deleteLikePromise = handleDeleteLike;
         this._cardDeletePopupWithForm = cardDeletePopupWithForm;
-        this._like = this._like.bind(this);
-        this._remove = this._remove.bind(this);
-        this._setLikes = this._setLikes.bind(this);
+        this._handleLike = this._handleLike.bind(this);
+        this._handleRemove = this._handleRemove.bind(this);
+        this._setLikesCount = this._setLikesCount.bind(this);
     }
 
     _getTemplate() {
@@ -36,54 +36,61 @@ class Card {
 
     createElement() {
         this._element = this._getTemplate();
+        this._cardImage = this._element.querySelector('.elements__image');
+        this._elementName = this._element.querySelector('.elements__name');
+        this._likesCount = this._element.querySelector('.elements__likes-count');
+        this._likeButton = this._element.querySelector('.elements__like');
+        this._deleteButton = this._element.querySelector('.elements__delete')
         this._setEventListeners();
-
-        const image = this._element.querySelector('.elements__image');
-        const elementName = this._element.querySelector('.elements__name');
-        const likes = this._element.querySelector('.elements__likes-count');
-        const heart = this._element.querySelector('.elements__like');
         if (this._isLiked) {
-            heart.classList.add('active');
+            this._likeButton.classList.add('active');
         }
         if (!this._isMine) {
-            this._element.querySelector('.elements__delete').classList.add('elements__delete_invisible');
+            this._deleteButton.classList.add('elements__delete_invisible');
         }
 
-        image.src = this._link;
-        image.alt = this._name;
-        likes.textContent = this._count;
-        image.id = this._id;
-        elementName.textContent = this._name;
+        this._cardImage.src = this._link;
+        this._cardImage.alt = this._name;
+        this._likesCount.textContent = this._count;
+        this._cardImage.id = this._id;
+        this._elementName.textContent = this._name;
 
         return this._element;
     }
 
-    _setLikes(count) {
-        const likes = this._element.querySelector('.elements__likes-count');
-        likes.textContent = count;
+    _setLikesCount(count) {
+        this._likesCount.textContent = count;
     }
 
-    _like(event) {
+    _handleLike(event) {
         event.stopPropagation();
+        let promise;
+        // Prevents clicks during request to the server is in process
+        event.target.setAttribute('disabled', 'disabled');
         if (event.target.classList.contains('active')) {
-            this._deleteLikePromise().then(data => this._setLikes(data.likes.length));
+            promise = this._deleteLikePromise();
         } else {
-            this._putLikePromise().then(data => this._setLikes(data.likes.length));
+            promise = this._putLikePromise();
         }
-        event.target.classList.toggle('active');
+        promise.then(data => {
+            this._setLikesCount(data.likes.length);
+            event.target.classList.toggle('active');
+        }).catch(showError).finally(() => {
+            event.target.removeAttribute('disabled');
+        });
     }
 
-    _remove(event) {
+    _handleRemove(event) {
         event.stopPropagation();
         this._cardDeletePopupWithForm.open(() => this._handleCardRemove().then(() => this._element.remove()).catch(err => `Не удалось удалить, ${err}`));
     }
 
     _setEventListeners() {
-        this._element.addEventListener(CLICK_EVENT, () => {
+        this._element.addEventListener(MOUSE_DOWN_EVENT, () => {
             this._handleCardClick({link: this._link, name: this._name});
         });
-        this._element.querySelector('.elements__like').addEventListener(CLICK_EVENT, this._like);
-        this._element.querySelector('.elements__delete').addEventListener(CLICK_EVENT, this._remove);
+        this._likeButton.addEventListener(MOUSE_DOWN_EVENT, this._handleLike);
+        this._deleteButton.addEventListener(MOUSE_DOWN_EVENT, this._handleRemove);
     }
 }
 

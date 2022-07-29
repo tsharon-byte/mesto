@@ -1,21 +1,23 @@
 import Popup from './Popup';
-import {OPEN_EVENT} from "../utils/constants";
+import {OPEN_EVENT, SUBMIT_BTN_SELECTOR} from "../utils/constants";
 
 class PopupWithForm extends Popup {
     constructor(selector, onSubmit) {
         super(selector);
         this._onSubmit = onSubmit;
+        this._form = document.getElementById(`${this._element.id}Form`);
+        this._submitButton = this._form.querySelector(SUBMIT_BTN_SELECTOR);
+        this._submitButtonText = this._submitButton.textContent;
+        this._inputList = this._element.querySelectorAll('.input');
     }
 
     createElement() {
-        this._form = document.getElementById(`${this._element.id}Form`);
         this._openEvent = new Event(OPEN_EVENT);
         this._setEventListeners();
         return this;
     }
 
     getForm() {
-        this._form = document.getElementById(`${this._element.id}Form`);
         return this._form;
     }
 
@@ -26,7 +28,6 @@ class PopupWithForm extends Popup {
     }
 
     _getInputValues() {
-        this._inputList = this._element.querySelectorAll('.input');
         this._formValues = {};
         this._inputList.forEach(input => {
             this._formValues[input.name] = input.value;
@@ -35,22 +36,29 @@ class PopupWithForm extends Popup {
     }
 
     setFormValues(data) {
-        this._inputList = this._element.querySelectorAll('.input');
         this._inputList.forEach(input => {
             input.value = data[input.name];
         });
     }
 
+    renderLoading(isLoading, loadingText = 'Сохранение...') {
+        if (isLoading) {
+            this._submitButton.setAttribute('disabled', 'disabled');
+            this._submitButton.textContent = loadingText;
+        } else {
+            this._submitButton.removeAttribute('disabled');
+            this._submitButton.textContent = this._submitButtonText;
+        }
+    }
+
     _setEventListeners() {
         super._setEventListeners();
-        this._form = document.getElementById(`${this._element.id}Form`);
         this._form.addEventListener('submit', evt => {
             evt.preventDefault();
             if (this._callback) {
                 this._callback();
             }
             this._onSubmit(this._getInputValues());
-            this._form.reset();
         });
     }
 
