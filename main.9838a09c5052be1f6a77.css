@@ -49,5 +49,5 @@
 .elements__delete_invisible{display:none}
 .elements__likes-container{align-items:center;display:flex;flex-direction:column;gap:3px}
 .elements__likes-count{color:#000;font-size:13px;font-weight:400;line-height:16px;text-align:center}
-.snackbar{background-color:#daa520;border-radius:4px;bottom:30px;box-sizing:border-box;height:50px;left:25%;padding-top:15px;position:fixed;text-align:center;visibility:hidden;width:50%}.snackbar.show{-webkit-animation:fadein .5s;animation:fadein .5s;visibility:visible}@-webkit-keyframes fadein{0%{bottom:0;opacity:0}to{bottom:30px;opacity:1}}@keyframes fadein{0%{bottom:0;opacity:0}to{bottom:30px;opacity:1}}
+.snackbar{background-color:#daa520;border-radius:4px;bottom:30px;box-sizing:border-box;height:50px;left:25%;padding-top:15px;position:fixed;text-align:center;visibility:hidden;width:50%;z-index:2000}.snackbar.show{-webkit-animation:fadein .5s;animation:fadein .5s;visibility:visible}@-webkit-keyframes fadein{0%{bottom:0;opacity:0}to{bottom:30px;opacity:1}}@keyframes fadein{0%{bottom:0;opacity:0}to{bottom:30px;opacity:1}}
 
